@@ -12,4 +12,5 @@ public interface ProductService {
 
     List<ProductDTO> findAllProductByCategories(HashSet<CategoryDTO> categories);
 
+    ProductDTO findProductByName(String product);
 }

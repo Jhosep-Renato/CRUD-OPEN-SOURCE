@@ -7,7 +7,7 @@ public class ProductError extends NoResultException {
     private final static String MESSAGE = "PRODUCT NOT FOUND";
 
     public ProductError(String message) {
-        super(MESSAGE.concat(message));
+        super(message);
     }
 
     public ProductError() {

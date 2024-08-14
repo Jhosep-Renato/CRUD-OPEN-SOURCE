@@ -1,6 +1,5 @@
 package com.debiansenpai.crudopensource.model.repository;
 
-import com.debiansenpai.crudopensource.exception.ProductError;
 import com.debiansenpai.crudopensource.model.dto.CategoryDTO;
 import com.debiansenpai.crudopensource.model.entity.Category;
 import com.debiansenpai.crudopensource.model.entity.Product;
@@ -26,7 +25,6 @@ public class ProductRepositoryImpl implements ProductRepository {
         final String HQL = "SELECT p FROM Product p JOIN FETCH p.category";
 
         TypedQuery<Product> typedQuery = entityManager.createQuery(HQL, Product.class);
-
         return typedQuery.getResultList();
     }
 
@@ -45,5 +43,16 @@ public class ProductRepositoryImpl implements ProductRepository {
                 })
                 .flatMap(Collection::stream)
                 .toList();
+    }
+
+    @Override
+    public Product findProductByName(String product) throws NoResultException {
+
+        final String HQL = "SELECT p FROM Product p JOIN FETCH p.category WHERE nameProduct =:name";
+
+        TypedQuery<Product> typedQuery = entityManager.createQuery(HQL, Product.class);
+        typedQuery.setParameter("name", product);
+
+        return typedQuery.getSingleResult();
     }
 }

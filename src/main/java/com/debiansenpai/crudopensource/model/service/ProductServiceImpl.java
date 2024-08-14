@@ -52,6 +52,22 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
+    public ProductDTO findProductByName(String product) {
+
+        if (product.isEmpty()) return null;
+
+        try {
+            String newName = product;
+            if (product.contains("-")) {
+                newName = product.replace("-", " ");
+            }
+            return createProductDTO(productRepository.findProductByName(newName));
+        } catch (NoResultException ex) {
+            throw new ProductError("Product not found");
+        }
+    }
+
     private ProductDTO createProductDTO(Product product) {
 
         ProductDTO productDTO = searchCategory(product.getCategory().getNameCategory());
@@ -71,7 +87,6 @@ public class ProductServiceImpl implements ProductService {
                 "AVE", AVE.getCategory()
         );
         String category = categoryMap.get(nameCategory);
-
         return new ProductDTO(category);
     }
 }
