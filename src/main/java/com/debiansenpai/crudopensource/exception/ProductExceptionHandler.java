@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ProductExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<GeneralErrorDTO> productNotFound(ProductError ex) {
-        GeneralErrorDTO generalError = new GeneralErrorDTO(HttpStatus.NOT_FOUND.name(), ex.getMessage());
+    public ResponseEntity<ErrorDTO> productNotFound(ProductError ex) {
+        ErrorDTO generalError = new ErrorDTO(HttpStatus.NOT_FOUND.name(), ex.getMessage());
         return new ResponseEntity<>(generalError, HttpStatus.NOT_FOUND);
     }
 

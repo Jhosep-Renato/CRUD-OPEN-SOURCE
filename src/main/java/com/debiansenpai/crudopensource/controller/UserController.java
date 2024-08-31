@@ -1,9 +1,9 @@
 package com.debiansenpai.crudopensource.controller;
 
+import com.debiansenpai.crudopensource.exception.ProductError;
 import com.debiansenpai.crudopensource.model.dto.CategoryDTO;
 import com.debiansenpai.crudopensource.model.dto.ProductDTO;
 import com.debiansenpai.crudopensource.model.service.ProductService;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +39,8 @@ public class UserController {
 
     @GetMapping("/findProductByName/{product}")
     public ResponseEntity<ProductDTO> findProductByName(@PathVariable("product") String nameProduct) {
+        if (nameProduct.contains(" ")) throw new ProductError("Product not exits");
+
         return new ResponseEntity<>(productService.findProductByName(nameProduct), HttpStatus.OK);
     }
 }
